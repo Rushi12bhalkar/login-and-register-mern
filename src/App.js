@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import Homepage from './componenets/homepage/Homepage'
+import './App.css'
+import Login from './componenets/login/Login'
+import Register from './componenets/register/Register'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+//npm install --save react-router-dom
 
 function App() {
+
+  const[user, setLoginUser]=useState({})
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+    <BrowserRouter>
+     <Routes>
+
+      <Route exact path="/" element={user && user._id ? <Homepage setLoginUser={setLoginUser} /> : <Login setLoginUser={setLoginUser} />} />
+      <Route path="/login" element={<Login setLoginUser={setLoginUser}></Login>}></Route>
+      <Route path="/register" element={<Register></Register>}></Route>
+     </Routes>
+    </BrowserRouter>
+    </>
+  )
 }
 
-export default App;
+export default App
